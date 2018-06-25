@@ -2,6 +2,7 @@ package redBook.part1introduction.aGettingStarted
 
 class Fib {
   def fib(n: Int) : Long = fibTailRec(n)
+  @annotation.tailrec
   private def fibTailRec(n: Int, a: Long = 0, b: Long = 1): Long = {
     n match {
       case 0 => a
@@ -13,5 +14,5 @@ class Fib {
 
 object FibTest extends App {
   val fibonacci : Fib = new Fib
-  println(fibonacci.fib(100))
+  println(fibonacci.fib(1000))
 }
