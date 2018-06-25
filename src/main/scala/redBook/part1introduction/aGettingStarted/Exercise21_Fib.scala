@@ -14,5 +14,4 @@ class Fib {
 object FibTest extends App {
   val fibonacci : Fib = new Fib
   println(fibonacci.fib(100))
-
 }
