@@ -8,7 +8,8 @@ package redBook.part1introduction.bFunctionalDataStructures
 class Init {
   def init[A](ls: List[A]): List[A] = {
     ls match {
-      case Cons(a,Nil) => Nil
+      case Cons(_,Nil) => Nil
+      case Nil => Nil
       case Cons(a,tail) => Cons(a,init(tail))
     }
   }
@@ -20,5 +21,11 @@ object Init extends App {
   println(ls)
   println(
     init.init(ls)
+  )
+  println(
+    init.init(Nil)
+  )
+  println(
+    init.init(List.listIntegerOneElement)
   )
 }

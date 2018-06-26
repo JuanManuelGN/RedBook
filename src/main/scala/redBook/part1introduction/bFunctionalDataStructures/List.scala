@@ -30,5 +30,6 @@ object List {
   }
 
   val listInteger = List(1,2,3,4,5)
+  val listIntegerOneElement = List(1)
   val listString = List("a","b","c","d")
 }
