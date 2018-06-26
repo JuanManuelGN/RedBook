@@ -30,5 +30,5 @@ object List {
   }
 
   val listInteger = List(1,2,3,4,5)
-  val ListString = List("a","b","c","d")
+  val listString = List("a","b","c","d")
 }

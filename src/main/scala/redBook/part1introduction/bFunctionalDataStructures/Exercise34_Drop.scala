@@ -19,17 +19,17 @@ class Drop {
 
 object Drop extends App {
   val droper : Drop = new Drop
-  println(List.ListString)
+  println(List.listString)
   println(
-    droper.drop(List.ListString,6)
+    droper.drop(List.listString,6)
   )
   println(
-    droper.drop(List.ListString,3)
+    droper.drop(List.listString,3)
   )
   println(
-    droper.drop(List.ListString,-3)
+    droper.drop(List.listString,-3)
   )
   println(
-    droper.drop(List.ListString,0)
+    droper.drop(List.listString,0)
   )
 }
