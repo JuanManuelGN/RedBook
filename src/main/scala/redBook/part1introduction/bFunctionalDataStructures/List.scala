@@ -29,5 +29,6 @@ object List {
     case _ => 101
   }
 
-  val listExample = List(1,2,3,4,5)
+  val listInteger = List(1,2,3,4,5)
+  val ListString = List("a","b","c","d")
 }

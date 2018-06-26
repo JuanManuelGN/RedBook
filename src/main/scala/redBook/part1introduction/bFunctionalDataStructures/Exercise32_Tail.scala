@@ -17,6 +17,6 @@ class Tail {
 object Tail extends App {
   val tail : Tail = new Tail
   println(
-    tail.tail(List.listExample)
+    tail.tail(List.listInteger)
   )
 }
