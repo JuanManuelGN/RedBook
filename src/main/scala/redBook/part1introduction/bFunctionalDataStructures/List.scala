@@ -28,4 +28,6 @@ object List {
     case Cons(h, t) => h + sum(t)
     case _ => 101
   }
+
+  val listExample = List(1,2,3,4,5)
 }
