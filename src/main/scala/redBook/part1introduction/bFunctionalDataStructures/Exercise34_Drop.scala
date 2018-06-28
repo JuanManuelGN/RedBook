@@ -5,31 +5,18 @@ package redBook.part1introduction.bFunctionalDataStructures
   * Note that this function takes time proportional only to the number of elements being
   * dropped—we don’t need to make a copy of the entire List.
   */
-class Drop {
-  def drop[A](ls: List[A], n: Int): List[A] = {
-    if (n<=0)
-      ls
-    else
-      ls match {
-        case Cons(_,tail) => drop(tail,n-1)
-        case Nil => Nil
-      }
-  }
-}
-
-object Drop extends App {
-  val droper : Drop = new Drop
+object Exercise34_Drop extends App {
   println(List.listString)
   println(
-    droper.drop(List.listString,6)
+    List.drop(List.listString,6)
   )
   println(
-    droper.drop(List.listString,3)
+    List.drop(List.listString,3)
   )
   println(
-    droper.drop(List.listString,-3)
+    List.drop(List.listString,-3)
   )
   println(
-    droper.drop(List.listString,0)
+    List.drop(List.listString,0)
   )
 }

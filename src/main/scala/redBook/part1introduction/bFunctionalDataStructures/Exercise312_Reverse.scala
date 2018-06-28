@@ -1,18 +1,13 @@
 package redBook.part1introduction.bFunctionalDataStructures
 
 /**
-  * Write sum, product, and a function to compute the length of a list using foldLeft.
+  * Write a function that returns the reverse of a list (given List(1,2,3) it returns
+  * List(3,2,1)). See if you can write it using a fold.
   */
-class ListOpReverse {
-  val tail : Tail = new Tail
-  def reverse[A](ls: List[A]) : List[A] = FoldL.foldLeft(ls,List[A]())((acc,h) => Cons(h,acc))
-}
-
-object ListOpReverse extends App {
-  val listOpR : ListOpReverse = new ListOpReverse
+object Exercise312_Reverse extends App {
   val ls = List.listInteger
   println(ls)
   println(
-    listOpR.reverse(ls)
+    List.reverse(ls)
   )
 }

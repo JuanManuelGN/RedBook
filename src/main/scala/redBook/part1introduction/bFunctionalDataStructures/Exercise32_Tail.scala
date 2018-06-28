@@ -5,18 +5,8 @@ package redBook.part1introduction.bFunctionalDataStructures
   * function takes constant time. What are different choices you could make in your
   * implementation if the List is Nil? We’ll return to this question in the next chapter.
   */
-class Tail {
-  def tail[A](xs : List[A]) : List[A] = {
-    xs match {
-      case Cons(_,tail) => tail
-      case _ => Nil
-    }
-  }
-}
-
-object Tail extends App {
-  val tail : Tail = new Tail
+object Exercise32_Tail extends App {
   println(
-    tail.tail(List.listInteger)
+    List.tail(List.listInteger)
   )
 }

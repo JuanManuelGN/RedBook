@@ -27,6 +27,72 @@ object List {
       case Cons(x, xs) => f(x, foldRight(xs, z)(f))
     }
 
+  // Exercise 3.2
+  def tail[A](xs : List[A]) : List[A] = {
+    xs match {
+      case Cons(_,tail) => tail
+      case _ => Nil
+    }
+  }
+
+  // Exercise 3.3
+  def setHead[A](x : A, xs : List[A]) : List[A] = {
+    xs match {
+      case Cons(a,tail) => Cons(x,tail)
+      case Cons(a,Nil) => Cons(x,Nil)
+      case _ => Nil
+    }
+  }
+
+  // Exercise 3.4
+  def drop[A](ls: List[A], n: Int): List[A] = {
+    if (n<=0)
+      ls
+    else
+      ls match {
+        case Cons(_,tail) => drop(tail,n-1)
+        case Nil => Nil
+      }
+  }
+
+  // Exercise 3.5
+  def dropWhile[A](ls: List[A], f: A => Boolean): List[A] = {
+    ls match {
+      case Cons(a,tail) =>
+        if(f(a))
+          dropWhile(tail,f)
+        else
+          Cons(a,dropWhile(tail,f))
+      case Nil => Nil
+    }
+  }
+
+  // Exercise 3.6
+  def init[A](ls: List[A]): List[A] = {
+    ls match {
+      case Cons(_,Nil) => Nil
+      case Nil => Nil
+      case Cons(a,tail) => Cons(a,init(tail))
+    }
+  }
+
+  // Exercise 3.9
+  def length[A](as: List[A]): Int = List.foldRight(as,0)((a,acc) => acc + 1)
+
+  // Exercise 3.10
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
+    case Nil => z
+    case Cons(h,tail) => foldLeft(tail,f(z,h))(f)
+  }
+
+  // Exercise 3.11
+  def sumfl(ls: List[Int]) : Int = foldLeft(ls,0)(_+_)
+  def productfl(ls: List[Int]) : Int = foldLeft(ls,1)(_*_)
+  def lengthfl(ls: List[Int]) : Int = foldLeft(ls,0)((h,acc) => acc+1)
+
+  // Exercise 3.12
+  def reverse[A](ls: List[A]) : List[A] = foldLeft(ls,List[A]())((acc,h) => Cons(h,acc))
+
   val x = List(1,2,3,4,5) match {
     case Cons(x, Cons(2, Cons(4, _))) => x
     case Nil => 42

@@ -1,11 +1,10 @@
 package redBook.part1introduction.bFunctionalDataStructures
 
-class ResultMatching {
-  val r = List.x
-}
-object ResultMatching extends App {
-  val rm : ResultMatching = new ResultMatching
+/**
+  * What will be the result of the following match expression?
+  */
+object Exercise31_ResultMatching extends App {
   println(
-    rm.r
+    List.x
   )
 }
