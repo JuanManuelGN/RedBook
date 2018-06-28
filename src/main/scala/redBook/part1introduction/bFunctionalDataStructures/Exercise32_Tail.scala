@@ -6,7 +6,7 @@ package redBook.part1introduction.bFunctionalDataStructures
   * implementation if the List is Nil? We’ll return to this question in the next chapter.
   */
 class Tail {
-  def tail(xs : List[Int]) : List[Int] = {
+  def tail[A](xs : List[A]) : List[A] = {
     xs match {
       case Cons(_,tail) => tail
       case _ => Nil
