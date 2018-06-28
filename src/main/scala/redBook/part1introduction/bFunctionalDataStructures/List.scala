@@ -95,7 +95,9 @@ object List {
 
   // Exercise 3.13
   def foldRightViaFoldLeft[A,B](as: List[A], z: B)(f: (A, B) => B): B =
-    foldLeft(reverse(as),z)((a,b) => f(b,a))
+    foldLeft(reverse(as),z)((b,a) => f(a,b))
+
+  def appendfrl[A](xs: List[A], ys: List[A]): List[A] = foldRightViaFoldLeft(xs,ys)(Cons(_,_))
 
   // Exercise 3.14
   def appendfl[A](xs: List[A], ys: List[A]): List[A] = foldLeft(reverse(xs),ys)((acc,h) => Cons(h,acc))
@@ -111,6 +113,7 @@ object List {
   }
 
   val listInteger = List(1,2,3,4,5)
-  val listIntegerOneElement = List(1)
+  val listIntegerOneElement = List(67)
+  val listIntegerTwoElement = List(99,43)
   val listString = List("a","b","c","d")
 }
