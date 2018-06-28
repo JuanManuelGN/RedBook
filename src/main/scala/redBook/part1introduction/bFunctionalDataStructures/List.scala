@@ -104,6 +104,17 @@ object List {
 
   def appendfr[A](xs: List[A], ys: List[A]): List[A] = foldRight(xs,ys)(Cons(_,_))
 
+  // Exercise 3.15
+  def concatListOfListAndFlat[A](ls: List[List[A]]) = foldRight(ls,List[A]())(appendfr)
+
+  // Exercise 3.16
+  def add1(ls: List[Int]): List[Int] = {
+    ls match {
+      case Nil => Nil
+      case Cons(h,tail) => Cons(1+h,add1(tail))
+    }
+  }
+
   val x = List(1,2,3,4,5) match {
     case Cons(x, Cons(2, Cons(4, _))) => x
     case Nil => 42
@@ -116,4 +127,5 @@ object List {
   val listIntegerOneElement = List(67)
   val listIntegerTwoElement = List(99,43)
   val listString = List("a","b","c","d")
+  val listOfListInteger = List(List(1,2,3,4,5),List(6,7,8,9,10),List(11,12,13,14,15))
 }
