@@ -128,6 +128,20 @@ object List {
     foldRight(as,List[B]())((h,tail) => Cons(f(h),tail))
   }
 
+  // Exercise 3.19
+  def filter[A](as: List[A])(f: A => Boolean): List[A] = {
+    as match {
+      case Nil => Nil
+      case Cons(h,tail) =>
+        if(f(h))
+          Cons(h,filter(tail)(f))
+        else
+          filter(tail)(f)
+    }
+  }
+  def filterfl[A](as: List[A])(f: A => Boolean): List[A] =
+    foldLeft(reverse(as),List[A]())((tail,h) => if(f(h)) Cons(h,tail) else tail)
+
   val x = List(1,2,3,4,5) match {
     case Cons(x, Cons(2, Cons(4, _))) => x
     case Nil => 42
