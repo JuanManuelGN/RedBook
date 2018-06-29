@@ -115,6 +115,14 @@ object List {
     }
   }
 
+  // Exercise 3.17
+  def listDoubleToString(ls: List[Double]): List[String] = {
+    ls match {
+      case Nil => Nil
+      case Cons(h,tail) => Cons(h.toString,listDoubleToString(tail))
+    }
+  }
+
   val x = List(1,2,3,4,5) match {
     case Cons(x, Cons(2, Cons(4, _))) => x
     case Nil => 42
@@ -127,5 +135,6 @@ object List {
   val listIntegerOneElement = List(67)
   val listIntegerTwoElement = List(99,43)
   val listString = List("a","b","c","d")
+  val listDouble = List(3.5,5.22,5.98,4.0)
   val listOfListInteger = List(List(1,2,3,4,5),List(6,7,8,9,10),List(11,12,13,14,15))
 }
