@@ -123,6 +123,11 @@ object List {
     }
   }
 
+  // Exercise 3.18
+  def map[A,B](as: List[A])(f: A => B): List[B] = {
+    foldRight(as,List[B]())((h,tail) => Cons(f(h),tail))
+  }
+
   val x = List(1,2,3,4,5) match {
     case Cons(x, Cons(2, Cons(4, _))) => x
     case Nil => 42
