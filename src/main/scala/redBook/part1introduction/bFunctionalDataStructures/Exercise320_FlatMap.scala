@@ -10,7 +10,10 @@ package redBook.part1introduction.bFunctionalDataStructures
   */
 object Exercise320_FlatMap extends App {
   val lsi = List.listInteger
+  // Lista original
   println(lsi)
-  println(
-    List.flatMap(lsi)(i => List(i,i)))
+  // Lista después de computar el map con la función i => List(i,i)
+  println(List.map(lsi)(i => List(i,i)))
+  
+  println(List.flatMap(lsi)(i => List(i,i)))
 }
