@@ -77,7 +77,7 @@ object List {
   }
 
   // Exercise 3.9
-  def length[A](as: List[A]): Int = List.foldRight(as,0)((a,acc) => acc + 1)
+  def length[A](as: List[A]): Int = List.foldRight(as,0)((_,acc) => acc + 1)
 
   // Exercise 3.10
   def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
@@ -148,6 +148,11 @@ object List {
     case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y
     case Cons(h, t) => h + sum(t)
     case _ => 101
+  }
+
+  // Exercise 3.20
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = {
+    concatListOfListAndFlat(map(as)(f))
   }
 
   val listInteger = List(1,2,3,4,5)
