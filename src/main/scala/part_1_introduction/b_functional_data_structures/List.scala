@@ -166,6 +166,13 @@ object List {
       case _ => Nil
     }
 
+  // Exercise 3.23
+  def zipWith[A, B](xs: List[A], ys: List[A])(f: (A,A) => B): List[B]=
+    (xs, ys) match {
+      case (Cons(x, xss), Cons(y, yss)) => Cons(f(x, y), zipWith(xss, yss)(f))
+      case _ => Nil
+    }
+
 
 
   val listInteger = List(1,2,3,4,5)
