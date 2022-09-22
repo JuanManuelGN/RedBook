@@ -320,3 +320,5 @@ gradle-app.setting
 **/sigar*dll
 f2e-core/test
 f2e-mock/lib/
+
+.bsp/
