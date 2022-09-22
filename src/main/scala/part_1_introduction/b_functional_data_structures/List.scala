@@ -159,8 +159,17 @@ object List {
   def filterViaFlatMap[A](ls: List[A])(f: A => Boolean): List[A] =
     flatMap(ls)(a => if (f(a)) List(a) else Nil)
 
+  // Exercise 3.22
+  def sumList(xs: List[Int], ys: List[Int]): List[Int] =
+    (xs, ys) match {
+      case (Cons(x, xss), Cons(y, yss)) => Cons(x + y, sumList(xss, yss))
+      case _ => Nil
+    }
+
+
 
   val listInteger = List(1,2,3,4,5)
+  val listInteger2 = List(1,5,3,4,6,9)
   val listIntegerOneElement = List(67)
   val listIntegerTwoElement = List(99,43)
   val listString = List("a", "b", "c", "d", "ad")
