@@ -1,4 +1,4 @@
-package redBook.part1introduction.bFunctionalDataStructures
+package part_1_introduction.b_functional_data_structures
 
 /**
   * Generalize tail to the function drop, which removes the first n elements from a list.

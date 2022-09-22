@@ -1,4 +1,4 @@
-package redBook.part1introduction.bFunctionalDataStructures
+package part_1_introduction.b_functional_data_structures
 
 trait List[+A]
 case object Nil extends List[Nothing]
@@ -155,10 +155,15 @@ object List {
     concatListOfListAndFlat(map(as)(f))
   }
 
+  // Exercise 3.21
+  def filterViaFlatMap[A](ls: List[A])(f: A => Boolean): List[A] =
+    flatMap(ls)(a => if (f(a)) List(a) else Nil)
+
+
   val listInteger = List(1,2,3,4,5)
   val listIntegerOneElement = List(67)
   val listIntegerTwoElement = List(99,43)
-  val listString = List("a","b","c","d")
+  val listString = List("a", "b", "c", "d", "ad")
   val listDouble = List(3.5,5.22,5.98,4.0)
   val listOfListInteger = List(List(1,2,3,4,5),List(6,7,8,9,10),List(11,12,13,14,15))
 }

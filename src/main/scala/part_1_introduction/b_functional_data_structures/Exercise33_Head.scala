@@ -1,4 +1,4 @@
-package redBook.part1introduction.bFunctionalDataStructures
+package part_1_introduction.b_functional_data_structures
 
 /**
   * Using the same idea, implement the function setHead for replacing the first element

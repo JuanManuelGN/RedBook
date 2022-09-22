@@ -1,4 +1,4 @@
-package redBook.part1introduction.bFunctionalDataStructures
+package part_1_introduction.b_functional_data_structures
 
 /**
   * What will be the result of the following match expression?

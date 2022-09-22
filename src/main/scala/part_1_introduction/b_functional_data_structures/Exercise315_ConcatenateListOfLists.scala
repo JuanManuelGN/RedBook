@@ -1,4 +1,4 @@
-package redBook.part1introduction.bFunctionalDataStructures
+package part_1_introduction.b_functional_data_structures
 
 /**
   * Implement append in terms of either foldLeft or foldRight.

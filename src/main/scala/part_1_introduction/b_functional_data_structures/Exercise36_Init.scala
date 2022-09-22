@@ -1,4 +1,4 @@
-package redBook.part1introduction.bFunctionalDataStructures
+package part_1_introduction.b_functional_data_structures
 
 /**
   * Not everything works out so nicely. Implement a function, init, that returns a List

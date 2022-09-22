@@ -1,4 +1,4 @@
-package redBook.part1introduction.aGettingStarted
+package part_1_introduction.a_getting_started
 
 /**
   * Write a recursive function to get the nth Fibonacci number (http://mng.bz/C29s).

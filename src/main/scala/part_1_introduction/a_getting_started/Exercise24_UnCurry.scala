@@ -1,4 +1,4 @@
-package redBook.part1introduction.aGettingStarted
+package part_1_introduction.a_getting_started
 
 /**
   * Implement uncurry, which reverses the transformation of curry. Note that since =>

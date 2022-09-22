@@ -1,4 +1,4 @@
-package redBook.part1introduction.aGettingStarted
+package part_1_introduction.a_getting_started
 
 /**
   * Implement the higher-order function that composes two functions.

@@ -1,4 +1,4 @@
-package redBook.part1introduction.aGettingStarted
+package part_1_introduction.a_getting_started
 
 /**
   * Let’s look at another example, currying,9 which converts a function f of two arguments
