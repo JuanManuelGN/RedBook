@@ -173,6 +173,9 @@ object List {
       case _ => Nil
     }
 
+  // No se como hacerlo de forma distinta a como está implementado en el repo
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = ???
+
 
 
   val listInteger = List(1,2,3,4,5)
