@@ -43,6 +43,19 @@ object TreeFunctions {
     case Branch(l, d) => 1 + depth(l).max(depth(d))
     case Leaf(v) => 1
   }
+
+  /**
+   * Exercise 3.28
+   * @param tree
+   * @param f
+   * @tparam A
+   * @tparam B
+   * @return
+   */
+  def map[A, B](tree: Tree[A])(f: A => B): Tree[B] = tree match {
+    case Leaf(v) => Leaf(f(v))
+    case Branch(l ,d) => Branch(map(l)(f), map(d)(f))
+  }
 }
 
 object Run extends App {
@@ -77,5 +90,10 @@ object Run extends App {
   val depth = TreeFunctions.depth(tree)
   println(
     depth
+  )
+
+  val treeMapped = TreeFunctions.map(tree)(x => x + 1)
+  println(
+    treeMapped
   )
 }
