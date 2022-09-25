@@ -22,9 +22,26 @@ object TreeFunctions {
       case Branch(l, d) => 1 + size(l) + size(d)
     }
 
+  /**
+   * Exercise 3.26 Max of a tree
+   *
+   * @param tree
+   * @return Int
+   */
   def maximum(tree: Tree[Int]): Int = tree match {
     case Branch(l, d) => maximum(l).max(maximum(d))
     case Leaf(value) => value
+  }
+
+  /**
+   * exercise 3.27 Maximum path length
+   *
+   * @param tree
+   * @return
+   */
+  def depth(tree: Tree[Int]): Int = tree match {
+    case Branch(l, d) => 1 + depth(l).max(depth(d))
+    case Leaf(v) => 1
   }
 }
 
@@ -55,5 +72,10 @@ object Run extends App {
   val max = TreeFunctions.maximum(tree)
   println(
     max
+  )
+
+  val depth = TreeFunctions.depth(tree)
+  println(
+    depth
   )
 }
