@@ -21,6 +21,11 @@ object TreeFunctions {
       case Leaf(_) => 1
       case Branch(l, d) => 1 + size(l) + size(d)
     }
+
+  def maximum(tree: Tree[Int]): Int = tree match {
+    case Branch(l, d) => maximum(l).max(maximum(d))
+    case Leaf(value) => value
+  }
 }
 
 object Run extends App {
@@ -29,21 +34,26 @@ object Run extends App {
       Branch(
         Leaf(1),
         Branch(
-          Leaf(2),
+          Leaf(-2),
           Leaf(3)
         )
       ),
       Branch(
         Branch(
-          Leaf(4),
+          Leaf(6),
           Leaf(5)
         ),
-        Leaf(6)
+        Leaf(5)
       )
     )
 
   val size = TreeFunctions.size(tree)
   println(
     size
+  )
+
+  val max = TreeFunctions.maximum(tree)
+  println(
+    max
   )
 }
