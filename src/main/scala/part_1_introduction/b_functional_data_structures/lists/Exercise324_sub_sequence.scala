@@ -1,4 +1,4 @@
-package part_1_introduction.b_functional_data_structures
+package part_1_introduction.b_functional_data_structures.lists
 
 /**
  * Use flatMap to implement filter

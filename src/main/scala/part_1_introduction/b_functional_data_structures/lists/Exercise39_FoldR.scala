@@ -1,8 +1,8 @@
-package part_1_introduction.b_functional_data_structures
+package part_1_introduction.b_functional_data_structures.lists
 
 /**
-  * Compute the length of a list using foldRight.
-  */
+ * Compute the length of a list using foldRight.
+ */
 object Exercise39_FoldR extends App {
   val ls = List.listInteger
   println(ls)
