@@ -1,8 +1,8 @@
 package part_1_introduction.b_functional_data_structures
 
 /**
-  * Use flatMap to implement filter
-  */
+ * Use flatMap to implement filter
+ */
 object Exercise324_sub_sequence extends App {
 
   // Oficial repo implementation
@@ -21,7 +21,7 @@ object Exercise324_sub_sequence extends App {
   }
 
   println(
-    hasSubsequence(List(1,2,3,4), List(2,3))
+    hasSubsequence(List(1, 2, 3, 4), List(2, 3))
   )
 
 
