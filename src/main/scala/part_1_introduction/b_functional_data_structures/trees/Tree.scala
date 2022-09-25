@@ -46,6 +46,7 @@ object TreeFunctions {
 
   /**
    * Exercise 3.28
+   *
    * @param tree
    * @param f
    * @tparam A
@@ -54,7 +55,7 @@ object TreeFunctions {
    */
   def map[A, B](tree: Tree[A])(f: A => B): Tree[B] = tree match {
     case Leaf(v) => Leaf(f(v))
-    case Branch(l ,d) => Branch(map(l)(f), map(d)(f))
+    case Branch(l, d) => Branch(map(l)(f), map(d)(f))
   }
 }
 
