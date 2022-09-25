@@ -57,6 +57,15 @@ object TreeFunctions {
     case Leaf(v) => Leaf(f(v))
     case Branch(l, d) => Branch(map(l)(f), map(d)(f))
   }
+
+  def fold[A, B](tree: Tree[A])(f: A => B)(g: (B, B) => B): B =
+    tree match {
+      case Leaf(v) => f(v)
+      case Branch(l, d) => g(fold(l)(f)(g), fold(d)(f)(g))
+    }
+
+  def sizeFold[A](tree: Tree[A]): Int =
+    fold(tree)(_ => 1)(1 + _ + _)
 }
 
 object Run extends App {
@@ -96,5 +105,10 @@ object Run extends App {
   val treeMapped = TreeFunctions.map(tree)(x => x + 1)
   println(
     treeMapped
+  )
+
+  val sizeF = TreeFunctions.sizeFold(tree)
+  println(
+    s"size using fold = $sizeF"
   )
 }
