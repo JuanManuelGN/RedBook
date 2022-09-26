@@ -72,6 +72,9 @@ object TreeFunctions {
 
   def depthFold[A](tree: Tree[A]): Int =
     fold(tree)(_ => 1)(1 + _.max(_))
+
+  def mapFold[A, B](tree: Tree[A])(f: A => B): Tree[B] =
+    fold(tree)(v => Leaf(f(v)): Tree[B])(Branch(_, _))
 }
 
 object Run extends App {
@@ -126,5 +129,10 @@ object Run extends App {
   val depthFold = TreeFunctions.depthFold(tree)
   println(
     s"depth using fold = $depthFold"
+  )
+
+  val treeMappedViaFold = TreeFunctions.mapFold(tree)(_+1)
+  println(
+    s"map using mapFold = $treeMappedViaFold"
   )
 }
