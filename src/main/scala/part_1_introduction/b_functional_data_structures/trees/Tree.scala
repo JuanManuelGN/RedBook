@@ -66,6 +66,9 @@ object TreeFunctions {
 
   def sizeFold[A](tree: Tree[A]): Int =
     fold(tree)(_ => 1)(1 + _ + _)
+
+  def maximumFold(tree: Tree[Int]): Int =
+    fold(tree)(leaf => leaf)(_.max(_))
 }
 
 object Run extends App {
@@ -110,5 +113,10 @@ object Run extends App {
   val sizeF = TreeFunctions.sizeFold(tree)
   println(
     s"size using fold = $sizeF"
+  )
+
+  val maximumFold = TreeFunctions.maximumFold(tree)
+  println(
+    s"maximum using fold = $maximumFold"
   )
 }
