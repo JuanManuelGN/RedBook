@@ -69,6 +69,9 @@ object TreeFunctions {
 
   def maximumFold(tree: Tree[Int]): Int =
     fold(tree)(leaf => leaf)(_.max(_))
+
+  def depthFold[A](tree: Tree[A]): Int =
+    fold(tree)(_ => 1)(1 + _.max(_))
 }
 
 object Run extends App {
@@ -102,7 +105,7 @@ object Run extends App {
 
   val depth = TreeFunctions.depth(tree)
   println(
-    depth
+    s"depth = $depth"
   )
 
   val treeMapped = TreeFunctions.map(tree)(x => x + 1)
@@ -118,5 +121,10 @@ object Run extends App {
   val maximumFold = TreeFunctions.maximumFold(tree)
   println(
     s"maximum using fold = $maximumFold"
+  )
+
+  val depthFold = TreeFunctions.depthFold(tree)
+  println(
+    s"depth using fold = $depthFold"
   )
 }
