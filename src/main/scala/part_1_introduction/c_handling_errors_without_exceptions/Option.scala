@@ -8,6 +8,9 @@ sealed trait Option[+A] {
     case Some(a) => Some(f(a))
   }
 
+  def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] =
+    a.flatMap(aa => b.map(bb => f(aa, bb)))
+
   def flatMap[B](f: A => Option[B]): Option[B] = this match {
     case None => None
     case Some(a) => f(a)
@@ -52,4 +55,17 @@ object Variance extends App {
   println(
     result
   )
+}
+
+object Map2 extends Option[String] with App {
+  val optA = Some("hola")
+  val optB = Some("Pepe")
+
+  def f: (String, String) => String = (a, b) => a.+(b)
+
+  val result = map2(optA, optB)(f)
+  println(
+    result
+  )
+
 }
