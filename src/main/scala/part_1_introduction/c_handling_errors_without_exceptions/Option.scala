@@ -1,8 +1,7 @@
 package part_1_introduction.c_handling_errors_without_exceptions
 
-import part_1_introduction.c_handling_errors_without_exceptions.Map2.map2
-
-import scala.{::, Either => _, Option => _, _}
+import scala.util.Try
+import scala.{Either => _, Option => _}
 
 sealed trait Option[+A] {
   def map[B](f: A => B): Option[B] = this match {
@@ -32,6 +31,25 @@ sealed trait Option[+A] {
     case None => None
     case Some(a) => if (f(a)) this else None
   }
+
+  /**
+   * List(Option(2),None,Option(5)) = None
+   * List(Option(1),Option(2),Option(3)) = Option(List(1,2,3))
+   *
+   * @param xs
+   * @tparam A
+   * @return
+   */
+  def sequence[A](xs: List[Option[A]]): Option[List[A]] =
+    xs.foldRight[Option[List[A]]](Some(Nil))((a, b) => map2(a, b)(_ :: _))
+
+  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = a match {
+    case Nil => Some(Nil)
+    case x :: xs => map2(f(x), traverse(xs)(f))((optX, optY) => optX :: optY)
+  }
+
+  def traverseFR[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] =
+    a.foldRight[Option[List[B]]](Some(Nil))((x, y) => map2(f(x), y)(_ :: _))
 }
 
 case class Some[+A](get: A) extends Option[A]
@@ -49,17 +67,6 @@ object Option {
   def variance(xs: Seq[Double]): Option[Double] = {
     mean(xs).flatMap(m => mean(xs.map(x => math.pow(x - m, 2))))
   }
-
-  /**
-   * List(Option(2),None,Option(5)) = None
-   * List(Option(1),Option(2),Option(3)) = Option(List(1,2,3))
-   *
-   * @param xs
-   * @tparam A
-   * @return
-   */
-  def sequence[A](xs: List[Option[A]]): Option[List[A]] =
-    xs.foldRight[Option[List[A]]](Some(Nil))((a, b) => map2(a, b)(_ :: _))
 }
 
 object Variance extends App {
@@ -82,16 +89,64 @@ object Map2 extends Option[String] with App {
   )
 }
 
-object Sequence extends App {
+object Sequence extends Option[Int] with App {
   val input = List(Some(1), Some(2), Some(3))
-  val result = Option.sequence(input)
+  val result = sequence(input)
   println(
     result
   )
 
   val inputError = List(Some(1), None, Some(3))
-  val resultError = Option.sequence(inputError)
+  val resultError = sequence(inputError)
   println(
     resultError
+  )
+}
+
+object Traverse extends Option[String] with App {
+  val input = List("1", "2", "3")
+  val result =
+    traverseFR[String, Int](input)(x => Try(x.toInt)
+      .fold(
+        _ => None,
+        v => Some(v)
+      )
+    )
+  println(
+    result
+  )
+
+  val inputFail = List("1", "boom", "3")
+  val resultFail =
+    traverseFR[String, Int](inputFail)(x => Try(x.toInt)
+      .fold(
+        _ => None,
+        v => Some(v)
+      )
+    )
+  println(
+    resultFail
+  )
+
+  val resultT =
+    traverse[String, Int](input)(x => Try(x.toInt)
+      .fold(
+        _ => None,
+        v => Some(v)
+      )
+    )
+  println(
+    resultT
+  )
+
+  val resultFailT =
+    traverse[String, Int](inputFail)(x => Try(x.toInt)
+      .fold(
+        _ => None,
+        v => Some(v)
+      )
+    )
+  println(
+    resultFailT
   )
 }
