@@ -15,7 +15,7 @@ sealed trait Option[+A] {
 
   def getOrElse[B >: A](default: => B): B = this match {
     case None => default
-    case Some(_) => _
+    case Some(x) => x
   }
 
   def orElse[B >: A](ob: => Option[B]): Option[B] = this match {
@@ -32,3 +32,24 @@ sealed trait Option[+A] {
 case class Some[+A](get: A) extends Option[A]
 
 case object None extends Option[Nothing]
+
+object Option {
+
+  def mean(xs: Seq[Double]): Option[Double] =
+    if (xs.isEmpty)
+      None
+    else
+      Some(xs.sum / xs.length)
+
+  def variance(xs: Seq[Double]): Option[Double] = {
+    mean(xs).flatMap(m => mean(xs.map(x => math.pow(x - m, 2))))
+  }
+}
+
+object Variance extends App {
+  val ls = Seq(1.0, 2.0, 3.0, 4.0)
+  val result = Option.variance(ls)
+  println(
+    result
+  )
+}
