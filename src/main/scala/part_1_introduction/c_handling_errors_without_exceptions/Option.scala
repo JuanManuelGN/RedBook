@@ -53,12 +53,13 @@ object Option {
   /**
    * List(Option(2),None,Option(5)) = None
    * List(Option(1),Option(2),Option(3)) = Option(List(1,2,3))
+   *
    * @param xs
    * @tparam A
    * @return
    */
   def sequence[A](xs: List[Option[A]]): Option[List[A]] =
-    xs.foldRight[Option[List[A]]](Some(Nil))((a,b) => map2(a,b)(_ :: _))
+    xs.foldRight[Option[List[A]]](Some(Nil))((a, b) => map2(a, b)(_ :: _))
 }
 
 object Variance extends App {
