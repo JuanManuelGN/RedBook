@@ -22,6 +22,12 @@ sealed trait Either[+E, +A] {
     this.flatMap(v => b.map(bv => f(v, bv)))
 }
 
+object Either {
+
+  def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] =
+    es.foldRight[Either[E, List[A]]](Right(List()))((a, acc) => a.map2(acc)((v, vAcc) => v :: vAcc))
+}
+
 case class Left[+E](value: E) extends Either[E, Nothing]
 
 case class Right[+A](value: A) extends Either[Nothing, A]
@@ -71,5 +77,16 @@ object EitherT extends App {
   )
   println(
     map2KoOtherReason
+  )
+
+  val listEither = List(Right(1), Right(2), Right(3))
+  val listEitherError = List(Right(1), Left("error"), Right(3))
+  val sequence = Either.sequence(listEither)
+  val sequenceError = Either.sequence(listEitherError)
+  println(
+    sequence
+  )
+  println(
+    sequenceError
   )
 }
