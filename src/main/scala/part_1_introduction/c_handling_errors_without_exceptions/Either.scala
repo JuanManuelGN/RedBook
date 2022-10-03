@@ -18,7 +18,8 @@ sealed trait Either[+E, +A] {
     case Right(v) => this
   }
 
-  def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] = ???
+  def map2[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): Either[EE, C] =
+    this.flatMap(v => b.map(bv => f(v, bv)))
 }
 
 case class Left[+E](value: E) extends Either[E, Nothing]
@@ -57,5 +58,18 @@ object EitherT extends App {
   )
   println(
     eitherOrElseKo
+  )
+
+  val map2Ok = eitherOk.map2(Right(4))(_ * _)
+  val map2Ko = eitherKo.map2(Right(4))(_ * _)
+  val map2KoOtherReason = eitherOk.map2(eitherKo)(_ * _)
+  println(
+    map2Ok
+  )
+  println(
+    map2Ko
+  )
+  println(
+    map2KoOtherReason
   )
 }
