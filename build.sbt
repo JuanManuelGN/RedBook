@@ -4,5 +4,9 @@ ThisBuild / scalaVersion := "2.13.9"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "RedBook"
+    name := "RedBook",
+    libraryDependencies := Seq(
+      "org.scalactic" %% "scalactic" % "3.2.14",
+      "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+    )
   )
