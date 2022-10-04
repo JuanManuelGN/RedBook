@@ -125,7 +125,7 @@ object Traverse extends Option[String] with App {
       )
     )
   println(
-    resultFail
+    s"traverse option fail - $resultFail"
   )
 
   val resultT =

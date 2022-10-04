@@ -26,6 +26,9 @@ object Either {
 
   def sequence[E, A](es: List[Either[E, A]]): Either[E, List[A]] =
     es.foldRight[Either[E, List[A]]](Right(List()))((a, acc) => a.map2(acc)((v, vAcc) => v :: vAcc))
+
+  def traverse[E, A, B](xs: List[A])(f: A => Either[E, B]): Either[E, List[B]] =
+    xs.foldRight[Either[E, List[B]]](Right(Nil))((x, acc) => f(x).map2(acc)((v, vAcc) => v :: vAcc))
 }
 
 case class Left[+E](value: E) extends Either[E, Nothing]
@@ -83,10 +86,15 @@ object EitherT extends App {
   val listEitherError = List(Right(1), Left("error"), Right(3))
   val sequence = Either.sequence(listEither)
   val sequenceError = Either.sequence(listEitherError)
+  val traverse = Either.traverse(listEither)(r => Right(r.toString))
+  val traverseError = Either.traverse(listEitherError)(r => Right(r.toString))
+
   println(
     sequence
   )
   println(
     sequenceError
   )
+  println(traverse)
+  println(s"traverse either fail - $traverseError")
 }
