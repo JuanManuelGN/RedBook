@@ -33,4 +33,18 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
     response.toList should be(expected.toList)
   }
 
+  "Drop 3" should "delete the whole stream" in {
+    val response = stream.drop(3)
+    val expected = Stream.empty
+
+    response.toList should be(expected.toList)
+  }
+
+  "Drop 2" should "return a stream with one element" in {
+    val response = stream.drop(2)
+    val expected = Stream.cons(3, Stream.empty)
+
+    response.toList should be(expected.toList)
+  }
+
 }
