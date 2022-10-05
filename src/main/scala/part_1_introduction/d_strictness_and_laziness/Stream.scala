@@ -1,5 +1,7 @@
 package part_1_introduction.d_strictness_and_laziness
 
+import part_1_introduction.d_strictness_and_laziness.Stream.empty
+
 sealed trait Stream[+A] {
 
   /**
@@ -9,6 +11,12 @@ sealed trait Stream[+A] {
   def toList: List[A] = this match {
     case Empty => Nil
     case Cons(head, tail) => head() :: tail().toList
+  }
+
+  def take(n: Int): Stream[A] = this match {
+    case Cons(h, t) if n > 0 => Stream.cons(h(), t().take(n-1))
+    case Cons(h, t) if n == 0 => empty
+    case _ => empty
   }
 }
 
