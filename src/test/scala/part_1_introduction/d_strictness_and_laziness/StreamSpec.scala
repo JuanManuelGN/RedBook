@@ -89,4 +89,14 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
     response should be(expected)
   }
 
+  "map * 10" should "Stream with each element is _*10" in {
+    val response = stream.mapFR(_*10)
+    val expected =
+      Stream.cons(10,
+        Stream.cons(20,
+          Stream.cons(30, Stream.empty)))
+
+    response.toList should be(expected.toList)
+  }
+
 }
