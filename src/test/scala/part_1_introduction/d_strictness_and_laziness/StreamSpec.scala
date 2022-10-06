@@ -61,4 +61,32 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
     response.toList should be(expected.toList)
   }
 
+  "head of stream in a not empty stream" should "Option with element 1" in {
+    val response = stream.headOption
+    val expected = Some(1)
+
+    response should be(expected)
+  }
+
+  "head of stream in an empty stream" should "None" in {
+    val response = Stream.empty.headOption
+    val expected = None
+
+    response should be(expected)
+  }
+
+  "head of stream in a not empty stream using FR" should "Option with element 1" in {
+    val response = stream.headOptionFR
+    val expected = Some(1)
+
+    response should be(expected)
+  }
+
+  "head of stream in an empty stream using FR" should "None" in {
+    val response = Stream.empty.headOptionFR
+    val expected = None
+
+    response should be(expected)
+  }
+
 }
