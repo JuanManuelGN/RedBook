@@ -40,6 +40,7 @@ sealed trait Stream[+A] {
   /**
    * Exercise 5.3 returning all starting elements of a Stream that
    * match the given predicate.
+   *
    * @param f
    * @return
    */
@@ -47,6 +48,24 @@ sealed trait Stream[+A] {
     case Cons(h, t) if f(h()) => cons(h(), t().takeWhile(f))
     case _ => empty
   }
+
+  def foldRight[B](z: => B)(f: (A, => B) => B): B =
+    this match {
+      case Cons(h, t) => f(h(), t().foldRight(z)(f))
+      case _ => z
+    }
+
+  /**
+   * Exercise 5.4
+   * Implement forAll, which checks that all elements in the Stream match a given predi-
+   * cate. Your implementation should terminate the traversal as soon as it encounters a
+   * nonmatching value.
+   *
+   * @param p
+   * @return
+   */
+  def forAll(p: A => Boolean): Boolean =
+    foldRight(true)((a, b) => p(a) && b)
 }
 
 case object Empty extends Stream[Nothing]
