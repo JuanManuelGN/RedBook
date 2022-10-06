@@ -54,4 +54,11 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
     response.toList should be(expected.toList)
   }
 
+  "Take while elements are odd using FR" should "Stream with element 1" in {
+    val response = stream.takeWhileFR(_ % 2 == 1)
+    val expected = Stream.cons(1, Stream.empty)
+
+    response.toList should be(expected.toList)
+  }
+
 }
