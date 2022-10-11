@@ -108,8 +108,16 @@ sealed trait Stream[+A] {
       cons(h, t)
     } else {
       t
-    }
-    )
+    })
+
+  /**
+   * Exercise 5.7 append using foldRight
+   * @param xs
+   * @tparam B
+   * @return
+   */
+  def append[B>:A](xs: => Stream[B]): Stream[B] =
+    foldRight(xs)((h, t) => cons(h, t))
 }
 
 case object Empty extends Stream[Nothing]

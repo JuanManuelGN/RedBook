@@ -103,7 +103,26 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
     val response = stream.filterFR(_ % 2 == 1)
     val expected =
       Stream.cons(1,
-          Stream.cons(3, Stream.empty))
+        Stream.cons(3, Stream.empty))
+
+    response.toList should be(expected.toList)
+  }
+
+  "append two stream" should "two stream joined" in {
+    val streamToAppend: Stream[Int] =
+      Stream.cons(6,
+        Stream.cons(7,
+          Stream.cons(8, Stream.empty)))
+    val response = stream.append(streamToAppend)
+    val expected =
+      Stream.cons(1,
+        Stream.cons(2,
+          Stream.cons(3,
+            Stream.cons(6,
+              Stream.cons(7,
+                Stream.cons(8, Stream.empty))))
+        )
+      )
 
     response.toList should be(expected.toList)
   }
