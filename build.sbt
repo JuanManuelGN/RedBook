@@ -1,12 +1,13 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
+import java.nio.file.FileSystems
 
-ThisBuild / scalaVersion := "2.13.9"
+enablePlugins(SbtProguard)
 
-lazy val root = (project in file("."))
-  .settings(
-    name := "RedBook",
-    libraryDependencies := Seq(
-      "org.scalactic" %% "scalactic" % "3.2.14",
-      "org.scalatest" %% "scalatest" % "3.2.14" % "test"
-    )
-  )
+scalaVersion := "2.13.6"
+name := "redbook"
+
+Proguard / proguardOptions ++= Seq("-dontoptimize", "-dontnote", "-dontwarn", "-ignorewarnings")
+Proguard / proguardOptions += ProguardOptions.keepMain("Main")
+
+Proguard / proguardInputs := (Compile / dependencyClasspath).value.files
+
+Proguard / proguardFilteredInputs ++= ProguardOptions.noFilter((Compile / packageBin).value)
