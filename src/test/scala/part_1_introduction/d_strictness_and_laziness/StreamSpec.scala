@@ -120,11 +120,8 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
           Stream.cons(3,
             Stream.cons(6,
               Stream.cons(7,
-                Stream.cons(8, Stream.empty))))
-        )
-      )
+                Stream.cons(8, Stream.empty))))))
 
     response.toList should be(expected.toList)
   }
-
 }
