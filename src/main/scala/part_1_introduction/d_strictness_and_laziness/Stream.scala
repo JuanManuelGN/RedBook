@@ -87,8 +87,29 @@ sealed trait Stream[+A] {
   def headOptionFR: Option[A] =
     foldRight(None: Option[A])((h,_) => Some(h))
 
+  /**
+   * Exercise 5.7 map using foldRight
+   * @param f
+   * @tparam B
+   * @return
+   */
   def mapFR[B](f: A => B): Stream[B] =
     foldRight(empty[B])((h,t) => cons(f(h), t))
+
+  /**
+   * Exercise 5.7 filter using foldRight
+   *
+   * @param f
+   * @tparam B
+   * @return
+   */
+  def filterFR(p: A => Boolean): Stream[A] =
+    foldRight(empty[A])((h, t) => if (p(h)) {
+      cons(h, t)
+    } else {
+      t
+    }
+    )
 }
 
 case object Empty extends Stream[Nothing]

@@ -21,7 +21,7 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
     val response: Stream[Int] = stream.take(2)
     val expected: Stream[Int] =
       Stream.cons(1,
-          Stream.cons(2, Stream.empty))
+        Stream.cons(2, Stream.empty))
 
     response.toList should be(expected.toList)
   }
@@ -90,11 +90,20 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
   }
 
   "map * 10" should "Stream with each element is _*10" in {
-    val response = stream.mapFR(_*10)
+    val response = stream.mapFR(_ * 10)
     val expected =
       Stream.cons(10,
         Stream.cons(20,
           Stream.cons(30, Stream.empty)))
+
+    response.toList should be(expected.toList)
+  }
+
+  "filter odd components" should "Stream with pair elements" in {
+    val response = stream.filterFR(_ % 2 == 1)
+    val expected =
+      Stream.cons(1,
+          Stream.cons(3, Stream.empty))
 
     response.toList should be(expected.toList)
   }
