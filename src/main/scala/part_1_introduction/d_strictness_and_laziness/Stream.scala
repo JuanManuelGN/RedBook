@@ -69,6 +69,7 @@ sealed trait Stream[+A] {
 
   /**
    * Exercise 5.5
+   *
    * @param f
    * @return
    */
@@ -82,19 +83,21 @@ sealed trait Stream[+A] {
 
   /**
    * Exercise 5.6
+   *
    * @return
    */
   def headOptionFR: Option[A] =
-    foldRight(None: Option[A])((h,_) => Some(h))
+    foldRight(None: Option[A])((h, _) => Some(h))
 
   /**
    * Exercise 5.7 map using foldRight
+   *
    * @param f
    * @tparam B
    * @return
    */
   def mapFR[B](f: A => B): Stream[B] =
-    foldRight(empty[B])((h,t) => cons(f(h), t))
+    foldRight(empty[B])((h, t) => cons(f(h), t))
 
   /**
    * Exercise 5.7 filter using foldRight
@@ -112,15 +115,17 @@ sealed trait Stream[+A] {
 
   /**
    * Exercise 5.7 append using foldRight
+   *
    * @param xs
    * @tparam B
    * @return
    */
-  def append[B>:A](xs: => Stream[B]): Stream[B] =
+  def append[B >: A](xs: => Stream[B]): Stream[B] =
     foldRight(xs)((h, t) => cons(h, t))
 
   /**
    * Exercise 5.7 flatMap using foldRight
+   *
    * @param f
    * @tparam B
    * @return
@@ -144,4 +149,22 @@ object Stream {
 
   def apply[A](as: A*): Stream[A] =
     if (as.isEmpty) empty else cons(as.head, apply(as.tail: _*))
+
+  /**
+   * Exercise 5.8
+   * Generalize ones slightly to the function constant, which returns an infinite Stream of
+   * a given value.
+   */
+  def constant[A](a: A): Stream[A] = Stream.cons(a, constant(a))
+
+  /**
+   * Exercise 5.9
+   * Write a function that generates an infinite stream of integers, starting from n, then
+   * n + 1, n + 2, and so on.
+   */
+  def from(n: Int): Stream[Int] = Stream.cons(n, from(n + 1))
+
+  def fibs(): Stream[Int] = fibs(0, 1)
+
+  private def fibs(n: Int, m: Int): Stream[Int] = Stream.cons(n, fibs(m, n + m))
 }

@@ -124,4 +124,35 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
 
     response.toList should be(expected.toList)
   }
+
+  "Create an infinity stream and take 2 elements" should "Stream with 2 elements" in {
+    val response = Stream.constant(1).take(2)
+    val expected =
+      Stream.cons(1,
+        Stream.cons(1, Stream.empty))
+
+    response.toList should be(expected.toList)
+  }
+
+  "Create an infinity stream from a given number and take 3 elements" should "Stream with 3 elements, these elements must be consecutive" in {
+    val response = Stream.from(5).take(3)
+    val expected =
+      Stream.cons(5,
+        Stream.cons(6,
+          Stream.cons(7, Stream.empty)))
+
+    response.toList should be(expected.toList)
+  }
+
+  "Fibonacci" should "Stream with 5 fibonacci elements" in {
+    val response = Stream.fibs.take(5)
+    val expected =
+      Stream.cons(0,
+        Stream.cons(1,
+          Stream.cons(1,
+            Stream.cons(2,
+              Stream.cons(3, Stream.empty)))))
+
+    response.toList should be(expected.toList)
+  }
 }
