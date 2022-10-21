@@ -155,4 +155,14 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
 
     response.toList should be(expected.toList)
   }
+
+  "Ones is a streams that only contains 1" should "Stream with infinity 1" in {
+    val response = Stream.onesUnFold().take(3)
+    val expected =
+      Stream.cons(1,
+        Stream.cons(1,
+          Stream.cons(1, Stream.empty)))
+
+    response.toList should be(expected.toList)
+  }
 }
