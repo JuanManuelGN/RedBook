@@ -185,4 +185,16 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
 
     response.toList should be(expected.toList)
   }
+
+  "Fibonacci using fibsUnFold" should "Stream with 5 fibonacci elements" in {
+    val response = Stream.fibsUnFold.take(5)
+    val expected =
+      Stream.cons(0,
+        Stream.cons(1,
+          Stream.cons(1,
+            Stream.cons(2,
+              Stream.cons(3, Stream.empty)))))
+
+    response.toList should be(expected.toList)
+  }
 }

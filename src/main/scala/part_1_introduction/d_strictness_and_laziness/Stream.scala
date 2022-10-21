@@ -187,7 +187,7 @@ object Stream {
 
   /**
    * Exercise 5.12
-   * Ones, constant via unFold
+   * Ones, constant, from and fibs via unFold
    *
    * @return
    */
@@ -196,4 +196,6 @@ object Stream {
   def constantUnFold[A](a: A): Stream[A] = unfold(a)(_ => Some(a, a))
 
   def fromUnFold(n: Int): Stream[Int] = unfold(n)(a => Some(a, a + 1))
+
+  def fibsUnFold: Stream[Int] = unfold((0, 1)) { case (x, y) => Some((x, (y, x + y))) }
 }
