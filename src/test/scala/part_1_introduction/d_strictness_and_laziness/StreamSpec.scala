@@ -175,4 +175,14 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
 
     response.toList should be(expected.toList)
   }
+
+  "Create an infinity stream from a given number and take 3 elements usin fromUnFold" should "Stream with 3 elements, these elements must be consecutive" in {
+    val response = Stream.fromUnFold(5).take(3)
+    val expected =
+      Stream.cons(5,
+        Stream.cons(6,
+          Stream.cons(7, Stream.empty)))
+
+    response.toList should be(expected.toList)
+  }
 }

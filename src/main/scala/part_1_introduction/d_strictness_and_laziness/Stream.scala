@@ -194,4 +194,6 @@ object Stream {
   def onesUnFold(): Stream[Int] = unfold(1)(_ => Some(1, 1))
 
   def constantUnFold[A](a: A): Stream[A] = unfold(a)(_ => Some(a, a))
+
+  def fromUnFold(n: Int): Stream[Int] = unfold(n)(a => Some(a, a + 1))
 }
