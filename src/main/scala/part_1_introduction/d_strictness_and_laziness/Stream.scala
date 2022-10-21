@@ -187,8 +187,11 @@ object Stream {
 
   /**
    * Exercise 5.12
-   * Ones via unFold
+   * Ones, constant via unFold
+   *
    * @return
    */
   def onesUnFold(): Stream[Int] = unfold(1)(_ => Some(1, 1))
+
+  def constantUnFold[A](a: A): Stream[A] = unfold(a)(_ => Some(a, a))
 }
