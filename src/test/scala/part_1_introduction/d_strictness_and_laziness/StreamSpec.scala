@@ -207,4 +207,13 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
 
     response.toList should be(expected.toList)
   }
+
+  "Take 2 using unFold" should "return a stream with 5 elements if the original stream has 2 or more elements" in {
+    val response: Stream[Int] = stream.takeUnFold(2)
+    val expected: Stream[Int] =
+      Stream.cons(1,
+        Stream.cons(2, Stream.empty))
+
+    response.toList should be(expected.toList)
+  }
 }
