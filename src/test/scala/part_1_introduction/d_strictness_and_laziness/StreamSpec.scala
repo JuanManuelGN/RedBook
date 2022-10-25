@@ -236,4 +236,18 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
 
     response.toList should be(expected.toList)
   }
+
+  "ZipAll using unFold" should "Stream with element 3, each element is the sum of both" in {
+    val stream2: Stream[Int] =
+      Stream.cons(2,
+        Stream.cons(3, Stream.empty))
+
+    val response = stream.zipAll(stream2)
+    val expected =
+      Stream.cons((Some(1),Some(2)),
+        Stream.cons((Some(2),Some(3)),
+          Stream.cons((Some(3),None), Stream.empty)))
+
+    response.toList should be(expected.toList)
+  }
 }
