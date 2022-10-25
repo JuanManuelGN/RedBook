@@ -1,6 +1,6 @@
 package part_1_introduction.d_strictness_and_laziness
 
-import part_1_introduction.d_strictness_and_laziness.Stream.{cons, empty}
+import part_1_introduction.d_strictness_and_laziness.Stream.{cons, empty, unfold}
 
 sealed trait Stream[+A] {
 
@@ -156,6 +156,13 @@ sealed trait Stream[+A] {
     Stream.unfold(this) {
       case Cons(h, t) if f(h()) => Some((h(), t()))
       case _ => None
+    }
+
+  def zipWith[B,C](s2: Stream[B])(f: (A,B) => C): Stream[C] =
+    unfold((this, s2)) {
+      case (Empty, _) => None
+      case (_, Empty) => None
+        case(Cons(h1, t1), Cons(h2, t2)) => Some(f(h1(), h2()), (t1(), t2()))
     }
 }
 
