@@ -135,6 +135,7 @@ sealed trait Stream[+A] {
 
   /**
    * Exercise 5.13
+   *
    * @param f
    * @tparam B
    * @return
@@ -147,8 +148,8 @@ sealed trait Stream[+A] {
 
   def takeUnFold(n: Int): Stream[A] =
     Stream.unfold((this, n)) {
-      case (Cons(h, _),1)=> Some((h(), (empty, 0)))
-      case (Cons(h, t),n) if n > 1 => Some((h(), (t(), n-1)))
+      case (Cons(h, _), 1) => Some((h(), (empty, 0)))
+      case (Cons(h, t), n) if n > 1 => Some((h(), (t(), n - 1)))
       case _ => None
     }
 
@@ -158,20 +159,39 @@ sealed trait Stream[+A] {
       case _ => None
     }
 
-  def zipWith[B,C](s2: Stream[B])(f: (A,B) => C): Stream[C] =
+  def zipWith[B, C](s2: Stream[B])(f: (A, B) => C): Stream[C] =
     unfold((this, s2)) {
       case (Empty, _) => None
       case (_, Empty) => None
-      case(Cons(h1, t1), Cons(h2, t2)) => Some(f(h1(), h2()), (t1(), t2()))
+      case (Cons(h1, t1), Cons(h2, t2)) => Some(f(h1(), h2()), (t1(), t2()))
     }
 
-  def zipAll[B](s2: Stream[B]): Stream[(Option[A],Option[B])] =
+  def zipAll[B](s2: Stream[B]): Stream[(Option[A], Option[B])] =
     unfold((this, s2)) {
       case (Empty, Empty) => None
-      case (Empty, Cons(h,t)) => Some((None, Some(h())), (Empty, t()))
-      case (Cons(h,t), Empty) => Some((Some(h()), None), (t(), Empty))
+      case (Empty, Cons(h, t)) => Some((None, Some(h())), (Empty, t()))
+      case (Cons(h, t), Empty) => Some((Some(h()), None), (t(), Empty))
       case (Cons(h1, t1), Cons(h2, t2)) => Some((Some(h1()), Some(h2())), (t1(), t2()))
     }
+
+  /**
+   * Exercise 5.14
+   * Implement startsWith using functions you’ve written. It should check if one
+   * Stream is a prefix of another. For instance, Stream(1,2,3) startsWith Stream(1,2)
+   * would be true.
+   *
+   * @param s
+   * @tparam A
+   * @return
+   */
+  def startsWith[A](s: Stream[A]): Boolean =
+    this.zipAll(s).foldRight(true)((h, t) => (h._1, h._2) match {
+      case (None, None) => true
+      case (None, _) => false
+      case (_, None) => true
+      case (a, b) => a == b && t
+    }
+  )
 
   /**
    * Exercise 5.15

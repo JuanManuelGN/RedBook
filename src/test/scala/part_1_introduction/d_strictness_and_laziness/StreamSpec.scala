@@ -266,9 +266,34 @@ class StreamSpec extends AnyFlatSpec with should.Matchers {
             Stream.empty))
       )
 
-    println(response.mapFR(_.toList).toList)
-    println(expected.mapFR(_.toList).toList)
-
     response.mapFR(_.toList).toList should be(expected.mapFR(_.toList).toList)
+  }
+
+  "startsWith" should "true" in {
+    val stream2: Stream[Int] =
+      Stream.cons(1,
+        Stream.cons(2, Stream.empty))
+
+    val response = stream.startsWith(stream2)
+
+    response should be(true)
+  }
+
+  "startsWith" should "false" in {
+    val stream2: Stream[Int] =
+      Stream.cons(1,
+        Stream.cons(5, Stream.empty))
+
+    val response = stream.startsWith(stream2)
+
+    response should be(false)
+  }
+
+  "startsWith Empty" should "true" in {
+    val stream2: Stream[Int] = Stream.empty
+
+    val response = stream.startsWith(stream2)
+
+    response should be(true)
   }
 }
