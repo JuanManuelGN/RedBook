@@ -172,6 +172,21 @@ sealed trait Stream[+A] {
       case (Cons(h,t), Empty) => Some((Some(h()), None), (t(), Empty))
       case (Cons(h1, t1), Cons(h2, t2)) => Some((Some(h1()), Some(h2())), (t1(), t2()))
     }
+
+  /**
+   * Exercise 5.15
+   * Implement tails using unfold. For a given Stream, tails returns the Stream of suf-
+   * fixes of the input sequence, starting with the original Stream. For example, given
+   * Stream(1,2,3), it would return Stream(Stream(1,2,3), Stream(2,3), Stream(3),
+   * Stream()).
+   *
+   * @return
+   */
+  def tails: Stream[Stream[A]] =
+    unfold(this) {
+      case Empty => None
+      case stream => Some((stream, stream.drop(1)))
+    }
 }
 
 case object Empty extends Stream[Nothing]
