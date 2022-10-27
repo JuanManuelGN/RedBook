@@ -2,7 +2,7 @@ package part_1_introduction.e_purely_functional_state
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
-import part_1_introduction.e_purely_functional_state.RNG.{double, doubleInt, intDouble}
+import part_1_introduction.e_purely_functional_state.RNG.{double, doubleInt, intDouble, ints}
 
 class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
@@ -31,6 +31,13 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
     val ((d, i), _) = doubleInt(s)
     i should be(1538995)
     d should be(7.166503928601742E-4)
+  }
+
+  "ints" should "list of ints randoms" in {
+    val (l, r) = ints(4)(s)
+    l.size should be(4)
+    l.head should be(1538995)
+    l.tail.head should not be(1538995)
   }
 
 }
