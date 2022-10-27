@@ -2,7 +2,7 @@ package part_1_introduction.e_purely_functional_state
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
-import part_1_introduction.e_purely_functional_state.RNG.{double, intDouble}
+import part_1_introduction.e_purely_functional_state.RNG.{double, doubleInt, intDouble}
 
 class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
@@ -23,6 +23,12 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
   "intDouble" should "couple of random, one Int and another Double" in {
     val ((i, d),_) = intDouble(s)
+    i should be(1538995)
+    d should be(7.166503928601742E-4)
+  }
+
+  "doubleInt" should "couple of random, one Int and another Double" in {
+    val ((d, i), _) = doubleInt(s)
     i should be(1538995)
     d should be(7.166503928601742E-4)
   }
