@@ -25,8 +25,8 @@ object RNG {
    */
   def nonNegativeInt(rng: RNG): (Int, RNG) = {
     val (i, r) = rng.nextInt
-    if (i < 0){
-      (-(i  + 1),r)
+    if (i < 0) {
+      (-(i + 1), r)
     } else {
       (i, r)
     }
@@ -59,10 +59,15 @@ object RNG {
     ((i, d), rng)
   }
 
-  def doubleInt(rng: RNG): ((Double, Int), RNG) ={
-    val ((i,d),r) = intDouble(rng)
-    ((d,i),r)
+  def doubleInt(rng: RNG): ((Double, Int), RNG) = {
+    val ((i, d), r) = intDouble(rng)
+    ((d, i), r)
   }
 
-  def double3(rng: RNG): ((Double, Double, Double), RNG) = ???
+  def double3(rng: RNG): ((Double, Double, Double), RNG) = {
+    val (d1, r1) = double(rng)
+    val (d2, r2) = double(r1)
+    val (d3, r3) = double(r2)
+    ((d1, d2, d3), r3)
+  }
 }
