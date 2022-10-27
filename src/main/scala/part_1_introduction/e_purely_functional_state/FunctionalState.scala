@@ -25,7 +25,11 @@ object RNG {
    */
   def nonNegativeInt(rng: RNG): (Int, RNG) = {
     val (i, r) = rng.nextInt
-    if (i < 0) (i * (-1) + 1, r) else (i, r)
+    if (i < 0){
+      (-(i  + 1),r)
+    } else {
+      (i, r)
+    }
   }
 
   /**
@@ -38,13 +42,8 @@ object RNG {
    * @return
    */
   def double(rng: RNG): (Double, RNG) = {
-    val minIntToDouble = Int.MinValue.toDouble
-    val maxIntToDouble = Int.MaxValue.toDouble
-    val (i,r) = rng.nextInt
-    i.toDouble match {
-      case x if x < 0 => (x - (minIntToDouble + ()),r)
-      case x => (x,r)
-    }
+    val (i, r) = nonNegativeInt(rng)
+    (i / (Int.MaxValue.toDouble + 1), r)
   }
 
   /**
