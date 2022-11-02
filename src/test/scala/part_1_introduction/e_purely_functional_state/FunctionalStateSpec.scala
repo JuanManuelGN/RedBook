@@ -2,7 +2,7 @@ package part_1_introduction.e_purely_functional_state
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
-import part_1_introduction.e_purely_functional_state.RNG.{_double, double, doubleInt, intDouble, ints}
+import part_1_introduction.e_purely_functional_state.RNG.{Rand, Simple, _double, both, double, doubleInt, intDouble, ints, nonNegativeInt, sequence}
 
 class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
@@ -44,6 +44,22 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
     l.size should be(4)
     l.head should be(1538995)
     l.tail.head should not be(1538995)
+  }
+
+  "both" should "two randoms" in {
+    val r1: Rand[Int] = nonNegativeInt
+    val r2: Rand[Int] = nonNegativeInt
+    val r = both[Int, Int](r1,r2)
+    r(s)._1 should be((1538995,322738769))
+  }
+
+  "sequence" should "two randoms" in {
+    val rands: List[Rand[Int]] = List.fill(5)(nonNegativeInt)
+    val response: Rand[List[Int]] = sequence(rands)
+
+    val ints = response.apply(s)._1
+    ints.size should be(5)
+    ints.distinct.size should be(5)
   }
 
 }
