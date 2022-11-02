@@ -2,7 +2,7 @@ package part_1_introduction.e_purely_functional_state
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
-import part_1_introduction.e_purely_functional_state.RNG.{double, doubleInt, intDouble, ints}
+import part_1_introduction.e_purely_functional_state.RNG.{_double, double, doubleInt, intDouble, ints}
 
 class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
@@ -17,6 +17,12 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
   "double" should "Random number between 0 and 1, not including 1" in {
     val (i, _) = double(s)
+    i should be >= 0.0
+    i should be < 1.0
+  }
+
+  "_double" should "Random number between 0 and 1, not including 1" in {
+    val (i, _) = _double(s)
     i should be >= 0.0
     i should be < 1.0
   }
