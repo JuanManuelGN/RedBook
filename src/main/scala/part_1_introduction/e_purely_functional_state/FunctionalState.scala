@@ -139,4 +139,38 @@ object RNG {
    */
   def sequence[A](fs: List[Rand[A]]): Rand[List[A]] =
     fs.foldRight(unit(Nil: List[A]))((c, acc) => map2(c, acc)(_ :: _))
+
+  def nonNegativeLessThan(n: Int): Rand[Int] = { rng =>
+    val (i, rng2) = nonNegativeInt(rng)
+    val mod = i % n
+    if (i + (n - 1) - mod >= 0)
+      (mod, rng2)
+    else nonNegativeLessThan(n)(rng)
+  }
+
+  /**
+   * Exercise 6.8
+   * Implement flatMap, and then use it to implement nonNegativeLessThan.
+   * @param f
+   * @param g
+   * @tparam A
+   * @tparam B
+   * @return
+   */
+  def flatMap[A,B](f: Rand[A])(g: A => Rand[B]): Rand[B] =
+    rng => {
+      val (a, rng2) = f(rng)
+      g(a)(rng2)
+    }
+
+  def nonNegativeLessThanFlatMap(n: Int): Rand[Int] =
+    flatMap(nonNegativeInt) {
+      x =>{
+        val mod = x % n
+        if (x + (n-1) - mod >= 0)
+          unit(mod)
+        else
+          nonNegativeLessThanFlatMap(n)
+      }
+    }
 }

@@ -2,7 +2,7 @@ package part_1_introduction.e_purely_functional_state
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
-import part_1_introduction.e_purely_functional_state.RNG.{Rand, Simple, _double, both, double, doubleInt, intDouble, ints, nonNegativeInt, sequence}
+import part_1_introduction.e_purely_functional_state.RNG.{Rand, Simple, _double, both, double, doubleInt, intDouble, ints, nonNegativeInt, nonNegativeLessThan, nonNegativeLessThanFlatMap, sequence}
 
 class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
@@ -60,6 +60,16 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
     val ints = response.apply(s)._1
     ints.size should be(5)
     ints.distinct.size should be(5)
+  }
+
+  "Non negative using flatMap" should "Int > 0" in {
+    val nnn: Rand[Int] = nonNegativeLessThan(100)
+    val nnnfm: Rand[Int] = nonNegativeLessThanFlatMap(100)
+
+    println(
+      s"Non Negatives ${nnn(s)} ${nnnfm(s)}"
+    )
+    nnn(s) should be(nnnfm(s))
   }
 
 }
