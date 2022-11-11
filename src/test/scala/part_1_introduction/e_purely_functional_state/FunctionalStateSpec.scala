@@ -2,7 +2,7 @@ package part_1_introduction.e_purely_functional_state
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
-import part_1_introduction.e_purely_functional_state.RNG.{Rand, Simple, _double, both, double, doubleInt, intDouble, ints, nonNegativeInt, nonNegativeLessThan, nonNegativeLessThanFlatMap, sequence}
+import part_1_introduction.e_purely_functional_state.RNG.{Rand, Simple, _double, both, double, doubleInt, int, intDouble, ints, mapFlatMap, nonNegativeInt, nonNegativeLessThan, nonNegativeLessThanFlatMap, sequence}
 
 class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
@@ -10,7 +10,7 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
 
   "Non negative random Int" should "Random number between 0 and Int.MaxValue" in {
 
-    val (i,_) = s.nextInt
+    val (i, _) = s.nextInt
     i should be >= 0
     i should be < Int.MaxValue
   }
@@ -28,7 +28,7 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
   }
 
   "intDouble" should "couple of random, one Int and another Double" in {
-    val ((i, d),_) = intDouble(s)
+    val ((i, d), _) = intDouble(s)
     i should be(1538995)
     d should be(7.166503928601742E-4)
   }
@@ -43,14 +43,14 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
     val (l, r) = ints(4)(s)
     l.size should be(4)
     l.head should be(1538995)
-    l.tail.head should not be(1538995)
+    l.tail.head should not be (1538995)
   }
 
   "both" should "two randoms" in {
     val r1: Rand[Int] = nonNegativeInt
     val r2: Rand[Int] = nonNegativeInt
-    val r = both[Int, Int](r1,r2)
-    r(s)._1 should be((1538995,322738769))
+    val r = both[Int, Int](r1, r2)
+    r(s)._1 should be((1538995, 322738769))
   }
 
   "sequence" should "two randoms" in {
@@ -70,6 +70,12 @@ class FunctionalStateSpec extends AnyFlatSpec with should.Matchers {
       s"Non Negatives ${nnn(s)} ${nnnfm(s)}"
     )
     nnn(s) should be(nnnfm(s))
+  }
+
+  "map using flatMap" should "  " in {
+    val (response, rng1) = mapFlatMap(int)(_ * 4)(s)
+
+    response should be(1538995*4)
   }
 
 }

@@ -105,6 +105,7 @@ object RNG {
 
   /**
    * Exercise 6.5
+   * Use map to reimplement double in a more elegant way. See exercise 6.2.
    */
   val _double: Rand[Double] =
     map(nonNegativeInt)(i => i / (Int.MaxValue.toDouble + 1))
@@ -172,5 +173,15 @@ object RNG {
         else
           nonNegativeLessThanFlatMap(n)
       }
+    }
+
+  def mapFlatMap[A, B](s: Rand[A])(f: A => B): Rand[B] =
+    flatMap(s) {
+      x => unit(f(x))
+    }
+
+  def map2FlatMap[A, B, C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] =
+    flatMap(ra) {
+      a => map(rb)(b => f(a,b))
     }
 }
